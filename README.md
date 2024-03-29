@@ -24,7 +24,7 @@ http://localhost:3001/
 
 ## How to run with Docker
 ```bash
-docker-compose build
+docker-compose build --no-cache
 ```
 ```bash
 docker-compose up -d
