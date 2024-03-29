@@ -1,5 +1,3 @@
-// pages/login.tsx
-
 import { signIn } from 'next-auth/react';
 import { AuthResponse } from '../types/types';
 
@@ -11,7 +9,7 @@ const LoginPage: React.FC = () => {
     const password = formData.get('password') as string;
     try {
       const result = await signIn('email-password', { email, password });
-      // Handle signIn result
+      
     } catch (error) {
       console.error('Authentication failed:', error);
     }

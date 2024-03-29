@@ -13,10 +13,9 @@ export default function ButtonAppBar() {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Clear the JWT token from localStorage
+    
     localStorage.removeItem("accessToken");
-
-    // Redirect to the login page
+    
     router.push("/login");
   };
 
@@ -30,9 +29,6 @@ export default function ButtonAppBar() {
           <Button color="inherit" onClick={handleLogout}>
             Logout
           </Button>
-          {/* <Button color="inherit">
-            <Link href="/login">Login</Link>
-          </Button> */}
         </Toolbar>
       </AppBar>
     </Box>

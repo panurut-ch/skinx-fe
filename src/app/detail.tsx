@@ -9,7 +9,7 @@ import {
 
 interface DetailPopupProps {
   open: boolean;
-  selectedRowData: any[]; // Assuming selectedRowData is an array
+  selectedRowData: any[]; 
   onClose: () => void;
 }
 
@@ -32,7 +32,6 @@ const DetailPopup: React.FC<DetailPopupProps> = ({
             <p>
               <b>Title:</b> {selectedRowData[1]}
             </p>
-            {/* <p>Content: {selectedRowData[2]}</p> */}
             <p>
               <b>Content:</b>
               <div
@@ -52,7 +51,6 @@ const DetailPopup: React.FC<DetailPopupProps> = ({
                 <p>
                   <b>Tags:</b>
                 </p>
-                {/* Specify the type for tag as string */}
                 {selectedRowData[5].split(",").map((tag: string, index: number) => (
                   <p key={index}>{tag.trim()}</p>
                 ))}

@@ -28,13 +28,12 @@ export default function SignIn() {
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // Perform client-side validation
+      
       if (!email || !password) {
         setError("Please provide both email and password.");
         return;
       }
-
-      // Call your API endpoint for authentication
+      
       const apiUrl = process.env.NEXT_PUBLIC_API_URL;
       console.log('apiUrl', apiUrl)
       const apiPath_logIn = process.env.NEXT_PUBLIC_API_PATH_LOGIN;
@@ -48,17 +47,15 @@ export default function SignIn() {
       });
 
       if (response.ok) {
-        // Extract the JWT token from the response
+        
         const data = await response.json();
         const { accessToken } = data;
-
-        // Store the token in localStorage
+        
         localStorage.setItem("accessToken", accessToken);
-
-        // Redirect to dashboard or desired page on successful login
+        
         router.push("/");
       } else {
-        // Handle authentication failure
+        
         setError("Invalid email or password.");
       }
     } catch (error) {
