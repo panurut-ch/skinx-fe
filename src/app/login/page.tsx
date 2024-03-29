@@ -35,7 +35,11 @@ export default function SignIn() {
       }
 
       // Call your API endpoint for authentication
-      const response = await fetch("http://localhost:3001/auth/login", {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      console.log('apiUrl', apiUrl)
+      const apiPath_logIn = process.env.NEXT_PUBLIC_API_PATH_LOGIN;
+      console.log('apiPath_logIn', apiPath_logIn)
+      const response = await fetch(`${apiUrl}${apiPath_logIn}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -107,10 +111,6 @@ export default function SignIn() {
               onChange={(e) => setPassword(e.target.value)}
             />
             {error && <Typography color="error">{error}</Typography>}
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -119,13 +119,6 @@ export default function SignIn() {
             >
               Sign In
             </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </form>
         </Box>
       </Container>

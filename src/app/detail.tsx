@@ -7,7 +7,17 @@ import {
   Button,
 } from "@mui/material";
 
-const DetailPopup = ({ open, selectedRowData, onClose }) => {
+interface DetailPopupProps {
+  open: boolean;
+  selectedRowData: any[]; // Assuming selectedRowData is an array
+  onClose: () => void;
+}
+
+const DetailPopup: React.FC<DetailPopupProps> = ({
+  open,
+  selectedRowData,
+  onClose,
+}) => {
   console.log("selectedRowData", selectedRowData);
 
   return (
@@ -42,7 +52,8 @@ const DetailPopup = ({ open, selectedRowData, onClose }) => {
                 <p>
                   <b>Tags:</b>
                 </p>
-                {selectedRowData[5].split(",").map((tag, index) => (
+                {/* Specify the type for tag as string */}
+                {selectedRowData[5].split(",").map((tag: string, index: number) => (
                   <p key={index}>{tag.trim()}</p>
                 ))}
               </>

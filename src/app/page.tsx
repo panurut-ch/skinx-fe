@@ -43,8 +43,10 @@ export default function Home() {
 
       try {
         // Make a request to your server to validate the token
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const apiPath_refreshToken = process.env.NEXT_PUBLIC_API_PATH_REFRESH_TOKEN;
         const response = await fetch(
-          "http://localhost:3001/auth/refresh-token",
+          `${apiUrl}${apiPath_refreshToken}`,
           {
             method: "POST",
             headers: {

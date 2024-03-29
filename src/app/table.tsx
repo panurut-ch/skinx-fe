@@ -32,8 +32,9 @@ export default function Table() {
         const headers = {
           Authorization: `Bearer ${bearerToken}`,
         };
-
-        const endpoint = "http://localhost:3001/posts/all-tag";
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        const apiPath_allTag = process.env.NEXT_PUBLIC_API_PATH_ALL_TAG;
+        const endpoint = `${apiUrl}${apiPath_allTag}`;
         const response = await axios.get(endpoint, { headers });
 
         setTagOptions(response.data);
@@ -82,12 +83,17 @@ export default function Table() {
         Authorization: `Bearer ${bearerToken}`,
       };
 
-      let endpoint = "http://localhost:3001/posts/all";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+      const apiPath_allPost = process.env.NEXT_PUBLIC_API_PATH_ALL_POST;
+      const apiPath_search = process.env.NEXT_PUBLIC_API_PATH_SEARCH;
+      const apiPath_searchTag = process.env.NEXT_PUBLIC_API_PATH_SEARCH_TAG;
+
+      let endpoint = `${apiUrl}${apiPath_allPost}`;
 
       if (keyword) {
-        endpoint = "http://localhost:3001/posts/search";
+        endpoint = `${apiUrl}${apiPath_search}`;
       } else if (tag && !keyword) {
-        endpoint = "http://localhost:3001/posts/tag";
+        endpoint = `${apiUrl}${apiPath_searchTag}`;
       }
       const response = await axios.post(
         endpoint,
