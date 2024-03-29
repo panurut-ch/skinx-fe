@@ -3,6 +3,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 This project for SkinX Test - Software Engineer (Fullstack)
 Developed by Panurut Chinakul
 
+## Library
+- React
+- Next.js
+- Material UI
+- Mui-datatables
+- Axios
+
 ## How to run local
 ```bash
 npm install
