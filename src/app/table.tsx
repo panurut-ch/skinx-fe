@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useRouter } from "next/navigation";
+import DetailPopup from "./detail";
 
 export default function Table() {
   const [data, setData] = useState([]);
@@ -13,8 +14,10 @@ export default function Table() {
   const [keyword, setKeyword] = useState("");
   const [selectedTag, setSelectedTag] = useState(null);
   const [tagOptions, setTagOptions] = useState([]);
-  const [perpage, setPerpage] = useState(10); // State variable to store perpage
+  const [perpage, setPerpage] = useState(10);
   const [page, setPage] = useState(2);
+  const [selectedRowData, setSelectedRowData] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -42,13 +45,31 @@ export default function Table() {
     fetchTagOptions();
   }, []);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data, totalRows } = await fetchData_fn(
+        1,
+        "id",
+        "asc",
+        keyword,
+        selectedTag,
+        perpage
+      );
+      setData(data);
+      setTotalRows(totalRows);
+      setTotalPages(Math.ceil(totalRows / perpage));
+    };
+
+    fetchData();
+  }, [keyword, selectedTag, router, perpage]);
+
   const fetchData_fn = async (
     page,
     sortbycolumn,
     orderby,
     keyword = "",
     tag = "",
-    perpage // Include perpage in the function parameters
+    perpage
   ) => {
     try {
       const bearerToken = localStorage.getItem("accessToken");
@@ -74,7 +95,7 @@ export default function Table() {
           keyword,
           tag: tag ? tag.name : null,
           page,
-          perpage, // Pass perpage to the API endpoint
+          perpage,
           sortbycolumn,
           orderby,
         },
@@ -96,24 +117,6 @@ export default function Table() {
       };
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data, totalRows } = await fetchData_fn(
-        1,
-        "id",
-        "asc",
-        keyword,
-        selectedTag,
-        perpage // Pass perpage to fetchData_fn
-      );
-      setData(data);
-      setTotalRows(totalRows);
-      setTotalPages(Math.ceil(totalRows / perpage));
-    };
-
-    fetchData();
-  }, [keyword, selectedTag, router, perpage]);
 
   const handleKeywordSearch = (keyword) => {
     setKeyword(keyword);
@@ -193,6 +196,14 @@ export default function Table() {
         });
       }
     },
+    onRowClick: (rowData) => {
+      setSelectedRowData(rowData);
+      setShowPopup(true);
+    },
+  };
+
+  const closePopup = () => {
+    setShowPopup(false);
   };
 
   return (
@@ -237,6 +248,11 @@ export default function Table() {
           />
         </div>
       </Grid>
+      <DetailPopup
+        open={showPopup}
+        selectedRowData={selectedRowData}
+        onClose={closePopup}
+      />
     </Grid>
   );
 }
