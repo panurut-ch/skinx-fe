@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "next dev -p 3000",
+    "build": "cross-env NODE_ENV=production next build",
+    "start": "next start -p 3001",
     "lint": "next lint"
   },
   "dependencies": {
@@ -16,7 +16,6 @@
     "axios": "^1.6.8",
     "mui-datatables": "^4.3.0",
     "next": "14.1.4",
-    "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -25,6 +24,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.1.4",
     "postcss": "^8",
